@@ -1,0 +1,12 @@
+FROM alpine:3.18
+
+ARG YQ_VERSION="3.3.0"
+
+RUN apk --update add --no-cache ca-certificates bash git curl gawk sed grep jq openssl openssh-client tar pigz pv
+
+RUN wget -q https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/local/bin/yq \
+    && chmod +x /usr/local/bin/yq
+
+RUN rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
+
+WORKDIR /app
